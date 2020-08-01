@@ -7,8 +7,6 @@ def index(request):
     pin = 4
     humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 
-    humidity, temperature = 60, 20
-
     weather = {
         'humidity': humidity,
         'temperature': temperature,
