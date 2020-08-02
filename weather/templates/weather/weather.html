@@ -1,2 +1,31 @@
-{{ weather.temperature }}
-{{ weather.humidity }}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>weather app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="static/weather/weather.css">
+    <link href="https://fonts.googleapis.com/css2?family=Recursive:wght@600&display=swap" rel="stylesheet">
+    {% load static %}
+</head>
+<body>
+    <div class="main">
+        <img src={% static "cloud1.png" %} class="logo">
+        <div class="home">
+            <ol>
+                <li>Room</li>
+                <li><div class="p">{{ weather.temperature }} °C</div></li>
+                <li><div class="p">{{ weather.humidity }} %</div></li>
+            </ol>
+        </div>
+        <div class="map">
+            <ol>
+                <li>Outside</li>
+                <li><div class="p">{{ weather.temperature_map }} K</div></li>
+                <li><div class="p">{{ weather.humidity_map }}  %</div></li>
+                <li><div class="p">{{ weather.pressure_map }} mbar</div></li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
+
