@@ -1,6 +1,8 @@
 from django.shortcuts import render
 #import Adafruit_DHT
 import requests
+from datetime import datetime
+
 
 
 def index(request):
@@ -30,6 +32,6 @@ def index(request):
     }
 
     
-    context = {'weather': weather}
+    context = {'weather': weather, 'time': datetime.now().strftime("%H:%M")}
 
     return render(request, 'weather/weather.html', context)
