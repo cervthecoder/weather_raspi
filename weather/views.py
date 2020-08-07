@@ -2,6 +2,8 @@ from django.shortcuts import render
 #import Adafruit_DHT
 import requests
 from datetime import datetime
+import matplotlib.pyplot as plt
+
 
 
 
@@ -21,8 +23,7 @@ def index(request):
     temperature_map = json_data['main']['temp']
     pressure_map = json_data['main']['pressure']
     humidity_map = json_data['main']['humidity']
-
-
+    
     weather = {
         'humidity': humidity,
         'temperature': temperature,
@@ -35,3 +36,9 @@ def index(request):
     context = {'weather': weather, 'time': datetime.now().strftime("%H:%M")}
 
     return render(request, 'weather/weather.html', context)
+
+    def graphs(request):
+        response = HttpResponse(content_type='image/png')
+        plt = plt.plot([23, 24, 25, 26, 27, 28],['15:00', '16:00', '17:00', '18:00', '19:00', '20:00'])
+        plt.savefig(response)
+        return response
