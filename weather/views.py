@@ -3,6 +3,7 @@ from django.shortcuts import render
 import requests
 from datetime import datetime
 import matplotlib.pyplot as plt
+from django.http import HttpResponse
 
 
 
@@ -37,8 +38,10 @@ def index(request):
 
     return render(request, 'weather/weather.html', context)
 
-    def graphs(request):
-        response = HttpResponse(content_type='image/png')
-        plt = plt.plot([23, 24, 25, 26, 27, 28],['15:00', '16:00', '17:00', '18:00', '19:00', '20:00'])
-        plt.savefig(response)
-        return response
+def graphs(request):
+    response = HttpResponse(content_type='image/png')
+    plt.plot([23, 24, 25, 26, 27, 28],['15:00', '16:00', '17:00', '18:00', '19:00', '20:00'])
+    plt.savefig(response)
+    return response
+
+    #will be used when the graph-picture problem will be resolved.
