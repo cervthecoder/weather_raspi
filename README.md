@@ -33,3 +33,5 @@ python3 manage.py runserver
 You should see something like this.
 ![alt text](https://github.com/cervthecoder/github_images/blob/master/Screenshot%202020-08-02%20at%2017.43.32.png)
 
+## Step 5.
+Configure Apache.
