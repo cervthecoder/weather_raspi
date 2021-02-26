@@ -11,8 +11,8 @@ My app for displaying info of humidity and temperature from my raspi and dht11 s
 ## Step 1.
 You need to download the code from github.
 ```shell
-mkdir weather-raspi
-cd weather-raspi
+mkdir weather_raspi
+cd weather_raspi
 git clone https://github.com/cervthecoder/weather_raspi.git
 ```
 ## Step 2.
@@ -55,20 +55,20 @@ nano /etc/apache2/sites-available/000-default.conf
 Add this to the end of the file.
 
 ```conf  
- Alias /static /home/pi/weather-raspi/static
-    <Directory /home/weather-raspi/weather/static> 
+ Alias /static /home/pi/weather_raspi/static
+    <Directory /home/weather_raspi/weather/static> 
         Require all granted
     </Directory>
   
-    <Directory /home/pi/weather-raspi/weather-raspi>
+    <Directory /home/pi/weather_raspi/weather_raspi>
         <Files wsgi.py>
             Require all granted
         </Files>
     </Directory>
   
-    WSGIDaemonProcess dvds python-path=/home/pi/weather-raspi python-home=/home/pi/weather-raspi/weatherenv
-    WSGIProcessGroup weather-raspi
-    WSGIScriptAlias / /home/pi/weather-raspi/weather-raspi/wsgi.py
+    WSGIDaemonProcess dvds python-path=/home/pi/weather_raspi python-home=/home/pi/weather_raspi/weatherenv
+    WSGIProcessGroup weather_raspi
+    WSGIScriptAlias / /home/pi/weather_raspi/weather_raspi/wsgi.py
 </VirtualHost>
   
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
@@ -77,10 +77,10 @@ Add this to the end of the file.
 ## Step 7.
 Give apache acces to our database.
 ```shell
-chmod g+w ~/weather-raspi/db.sqlite3
-chmod g+w ~/weather-raspi
+chmod g+w ~/weather_raspi/db.sqlite3
+chmod g+w ~/weather_raspi
 sudo chown :www-data db.sqlite3
-sudo chown :www-data ~/weather-raspi
+sudo chown :www-data ~/weather_raspi
 ```
 
 ## Step 8.
@@ -92,7 +92,7 @@ sudo service apache2 restart
 ## Step 9.
 Make your page accessible from another computer. (only on your local network)
 ```shell
-nano weather-raspi/weather-raspi/settings.py
+nano weather_raspi/weather_raspi/settings.py
 ```
 And change this line...
 ```python
