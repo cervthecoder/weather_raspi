@@ -10,12 +10,16 @@ My app for displaying info of humidity and temperature from my raspi and dht11 s
 3. Bread board and jumper cables or you can solder it directly on raspberry pi.
 ## Step 1.
 You need to download the code from github.
-```
+```shell
+mkdir weather-raspi
+cd weather-raspi
 git clone https://github.com/cervthecoder/weather_raspi.git
 ```
 ## Step 2.
-Donwload needed libraries for python.
-```
+Create virtualenviroment and donwload needed libraries for python.
+```shell
+virtualenv weatherenv
+source dvdsenv/bin/activate
 pip3 install django
 pip3 install Adafruit_DHT
 ```
@@ -27,11 +31,76 @@ For more info about ports on your raspberry pi visit the <a href="https://www.ra
 
 ## Step 4.
 run this command in /weather_raspi directory and go to localhost in your browser.
-```
+```shell
 python3 manage.py runserver
 ```
 You should see something like this.
-![alt text](https://github.com/cervthecoder/github_images/blob/master/Screenshot%202020-08-02%20at%2017.43.32.png)
+![](https://github.com/cervthecoder/github_images/blob/master/Screenshot%202020-08-02%20at%2017.43.32.png)
 
 ## Step 5.
-Configure Apache.
+Install apache.
+```shell
+sudo apt update
+sudo apt install apache2 -y
+sudo apt-get install apache2-dev -y
+sudo apt-get install apache2-mpm-worker -y
+sudo apt-get install libapache2-mod-wsgi-py3 
+```
+
+## Step 6.
+Configure apache. In your home directory `cd`.
+```shell
+nano /etc/apache2/sites-available/000-default.conf
+```
+Add this to the end of the file.
+
+```conf  
+ Alias /static /home/pi/weather-raspi/static
+    <Directory /home/weather-raspi/weather/static> 
+        Require all granted
+    </Directory>
+  
+    <Directory /home/pi/weather-raspi/weather-raspi>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
+  
+    WSGIDaemonProcess dvds python-path=/home/pi/weather-raspi python-home=/home/pi/weather-raspi/weatherenv
+    WSGIProcessGroup weather-raspi
+    WSGIScriptAlias / /home/pi/weather-raspi/weather-raspi/wsgi.py
+</VirtualHost>
+  
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+```
+
+## Step 7.
+Give apache acces to our database.
+```shell
+chmod g+w ~/weather-raspi/db.sqlite3
+chmod g+w ~/weather-raspi
+sudo chown :www-data db.sqlite3
+sudo chown :www-data ~/weather-raspi
+```
+
+## Step 8.
+Restart apache.
+```
+sudo service apache2 restart
+```
+
+## Step 9.
+Make your page accessible from another computer. (only on your local network)
+```shell
+nano weather-raspi/weather-raspi/settings.py
+```
+And change this line...
+```python
+ALLOWED_HOSTS=[]
+```
+To this...
+```python
+ALLOWED_HOSTS=['raspberrypi']
+```
+Now you should be able to acces the website on local network on this adress
+![](https://github.com/cervthecoder/github_images/blob/master/Screenshot%202021-02-26%20at%2017.37.51.png?raw=true)
