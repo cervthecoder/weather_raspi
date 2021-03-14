@@ -11,13 +11,12 @@ My app for displaying info of humidity and temperature from my raspi and dht11 s
 ## Step 1.
 You need to download the code from github.
 ```shell
-mkdir weather_raspi
-cd weather_raspi
 git clone https://github.com/cervthecoder/weather_raspi.git
 ```
 ## Step 2.
 Create virtualenviroment and donwload needed libraries for python.
 ```shell
+cd weather_raspi
 virtualenv weatherenv
 source weatherenv/bin/activate
 pip3 install django
