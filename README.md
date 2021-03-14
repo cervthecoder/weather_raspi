@@ -21,6 +21,7 @@ virtualenv weatherenv
 source weatherenv/bin/activate
 pip3 install django
 pip3 install Adafruit_DHT
+pip3 install requests
 ```
 ## Step 3.
 Connect the sensor to raspberry pi (**GPIO port = 4**).s
