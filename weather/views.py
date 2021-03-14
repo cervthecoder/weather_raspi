@@ -1,5 +1,5 @@
 from django.shortcuts import render
-#import Adafruit_DHT
+import Adafruit_DHT
 import requests
 from datetime import datetime
 import matplotlib.pyplot as plt
@@ -9,11 +9,9 @@ from django.http import HttpResponse
 
 
 def index(request):
-    #sensor = Adafruit_DHT.DHT11
-    #pin = 4
-    #humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-
-    humidity, temperature = 70, 25
+    sensor = Adafruit_DHT.DHT11
+    pin = 4
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 
     api_address = 'http://api.openweathermap.org/data/2.5/weather?appid=0c42f7f6b53b244c78a418f4f181282a&q='
     city = "Rynholec"
