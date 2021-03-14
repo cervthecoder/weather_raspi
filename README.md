@@ -19,7 +19,7 @@ git clone https://github.com/cervthecoder/weather_raspi.git
 Create virtualenviroment and donwload needed libraries for python.
 ```shell
 virtualenv weatherenv
-source dvdsenv/bin/activate
+source weatherenv/bin/activate
 pip3 install django
 pip3 install Adafruit_DHT
 ```
