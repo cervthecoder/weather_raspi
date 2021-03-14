@@ -2,7 +2,7 @@ from django.shortcuts import render
 import Adafruit_DHT
 import requests
 from datetime import datetime
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from django.http import HttpResponse
 
 
