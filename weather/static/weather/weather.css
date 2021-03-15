@@ -63,6 +63,8 @@ li{
 @media screen and (max-width: 707px){
     .main{
         padding-bottom: 50em;
+        display: flex;
+        flex-direction: column;
     }
 
     .map ul li:nth-child(2){

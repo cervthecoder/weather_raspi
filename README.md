@@ -66,7 +66,7 @@ Add this to the end of the file.
         </Files>
     </Directory>
   
-    WSGIDaemonProcess dvds python-path=/home/pi/weather_raspi python-home=/home/pi/weather_raspi/weatherenv
+    WSGIDaemonProcess weather_raspi python-path=/home/pi/weather_raspi python-home=/home/pi/weather_raspi/weatherenv
     WSGIProcessGroup weather_raspi
     WSGIScriptAlias / /home/pi/weather_raspi/weather_raspi/wsgi.py
 </VirtualHost>
@@ -75,12 +75,13 @@ Add this to the end of the file.
 ```
 
 ## Step 7.
-Give apache acces to our database.
+Give apache acces to our database and GPIO pins
 ```shell
 chmod g+w ~/weather_raspi/db.sqlite3
 chmod g+w ~/weather_raspi
 sudo chown :www-data db.sqlite3
 sudo chown :www-data ~/weather_raspi
+sudo usermod -a -G gpio www-data
 ```
 
 ## Step 8.
@@ -91,6 +92,12 @@ sudo service apache2 restart
 
 ## Step 9.
 Make your page accessible from another computer. (only on your local network)
+First you need to find out what is your IP adress.
+```shell
+ping raspberrypi.local
+PING raspberrypi.local (192.168.99.99): 56 data bytes
+```
+`^C` (to exit the "pinging")
 ```shell
 nano weather_raspi/weather_raspi/settings.py
 ```
@@ -98,9 +105,14 @@ And change this line...
 ```python
 ALLOWED_HOSTS=[]
 ```
-To this...
+Insert there yout IP adress
 ```python
-ALLOWED_HOSTS=['raspberrypi']
+ALLOWED_HOSTS=['192.168.99.99']
 ```
-Now you should be able to acces the website on local network on this adress
-![](https://github.com/cervthecoder/github_images/blob/master/Screenshot%202021-02-26%20at%2017.37.51.png?raw=true)
+To give static to apache2 (in weather_raspi directory)
+```shell
+python3 manage.py collectstatic
+```
+
+Now you should be able to acces the website on local network on `http://ip_adress`
+![](https://github.com/cervthecoder/github_images/blob/master/Screenshot%202021-03-15%20at%2017.55.28.png?raw=true)
